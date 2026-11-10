@@ -1009,11 +1009,12 @@ export const WolbeckerTiergarten = {
   "id": "way/356928880",
   "properties": {
     "@id": "way/356928880",
+    "name": "Wolbecker Tiergarten",
     "source:geometry": "Naturschutzgebiete in NRW (LINFOS) - (Shapefile Stand: 2026-02-17)"
   },
   "geometry": {
-    "type": "LineString",
-    "coordinates": [
+    "type": "Polygon",
+    "coordinates": [[
       [
         7.743817,
         51.9164906
@@ -1974,6 +1975,6 @@ export const WolbeckerTiergarten = {
         7.743817,
         51.9164906
       ]
-    ]
+    ]]
   }
 }
