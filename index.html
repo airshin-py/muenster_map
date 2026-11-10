@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Münster map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 1. Create the map, centred on Münster
+    const map = L.map('map').setView([51.9607, 7.6261], 11);
+
+    // 2. Add the OpenStreetMap pictures as the background
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+    // 3. Put a pin on Münster with a pop-up
+    L.marker([51.9607, 7.6261]).addTo(map).bindPopup('<b>Münster</b>');
+
+    // 4. Define the protected areas (shapes)
+    const sites = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: { name: 'NSG Rieselfelder Münster' },
+          geometry: { type: 'Polygon', coordinates: [[
+            [7.560, 52.075], [7.600, 52.080], [7.615, 52.100],
+            [7.585, 52.115], [7.550, 52.105], [7.540, 52.085], [7.560, 52.075]
+          ]]}
+        },
+        {
+          type: 'Feature',
+          properties: { name: 'NSG Wolbecker Tiergarten' },
+          geometry: { type: 'Polygon', coordinates: [[
+            [7.675, 51.915], [7.710, 51.917], [7.715, 51.935],
+            [7.690, 51.942], [7.668, 51.932], [7.675, 51.915]
+          ]]}
+        }
+      ]
+    };
+
+    // 5. Draw the shapes in green; clicking one shows its name
+    L.geoJSON(sites, {
+      style: { color: '#1f7a4d', fillOpacity: 0.4 },
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    }).addTo(map);
+  </script>
+</body>
+</html>
